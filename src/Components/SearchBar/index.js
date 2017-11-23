@@ -13,6 +13,7 @@ const Form = styled.form`
     box-shadow: 0px 0px 25px #000;
     display: block;
     width: 300px;
+    max-width: 90%;
     height: 5px;
     position: absolute;
     z-index: -1;
@@ -20,9 +21,7 @@ const Form = styled.form`
   }
 `;
 
-const Input = styled.input.attrs({
-  type: "text"
-})`
+const Input = styled.input`
   background: white;
   border: none;
   font-size: 16px;
@@ -48,7 +47,7 @@ const Icon = styled.button.attrs({
   border-radius: 0px 3px 3px 0px;
 `;
 
-class Browser extends Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = { search: "" };
@@ -85,4 +84,4 @@ class Browser extends Component {
   }
 }
 
-export default Browser;
+export default SearchBar;
