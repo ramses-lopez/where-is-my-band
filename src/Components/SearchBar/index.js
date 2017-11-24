@@ -7,6 +7,7 @@ const Form = styled.form`
   width: 100%;
   justify-content: center;
   align-items: center;
+  padding: 15px;
 
   &:after {
     content: "";
@@ -17,7 +18,7 @@ const Form = styled.form`
     height: 5px;
     position: absolute;
     z-index: -1;
-    bottom: 0;
+    bottom: 16px;
   }
 `;
 

@@ -27,8 +27,10 @@ const theme = {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-`
+  justify-content: center;
+`;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +78,7 @@ class App extends Component {
           <SearchBar search={this.onSearch} />
           <Wrapper>
             <Artist artist={this.state.artist} />
-            <EventList events={this.state.artistEvents}/>
+            <EventList events={this.state.artistEvents} />
           </Wrapper>
         </div>
       </ThemeProvider>

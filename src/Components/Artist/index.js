@@ -11,14 +11,13 @@ const Wrapper = styled.div`
     width: 50%;
   }
   @media (min-width: 1200px) {
-    width: 33%;
+    width: 33.3%;
   }
 `;
 
 const Picture = styled.img`
   width: 100%;
   height: auto;
-  max-width: 400px;
   margin: auto;
   display: block;
 `;
@@ -28,7 +27,6 @@ const Name = styled.h1`
   font-size: 40px;
   font-weight: bold;
   width: 100%;
-  max-width: 400px;
   margin: auto;
   margin-top: 15px;
 `;
@@ -37,7 +35,6 @@ const Excerpt = styled.div`
   margin-top: 15px;
   font-size: 16px;
   width: 100%;
-  max-width: 400px;
   margin: auto;
 `;
 
@@ -47,7 +44,6 @@ const Follow = styled.a`
   display: block;
   font-size: 16px;
   width: 100%;
-  max-width: 400px;
   margin: auto;
   margin-top: 15px;
 `;
