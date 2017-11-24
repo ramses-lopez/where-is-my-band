@@ -54,7 +54,7 @@ const Artist = ({ artist }) => (
     <Name>{artist.name}</Name>
     <Excerpt>{artist.excerpt}</Excerpt>
     <Follow href={artist.facebook_page_url} target="_blank">
-      Folow on Facebook
+      Follow on Facebook
     </Follow>
   </Wrapper>
 );
