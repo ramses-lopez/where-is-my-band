@@ -1,5 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={12}
+    defaultCenter={{ lat: props.lat, lng: props.lng }}>
+    {props.isMarkerShown && <Marker position={{ lat: props.lat, lng: props.lng }} />}
+  </GoogleMap>
+))
 
 const Card = styled.div`
   list-style-type: none;
@@ -40,8 +49,10 @@ const TicketDate = styled.div`
 `;
 
 const EventPage = ({
-  data: { venue, datetime: date, on_sale_datetime: onSale }
+  data: { venue, datetime: date, on_sale_datetime: onSale },
+  artist: { artist }
 }) => {
+  console.log(artist)
   return (
     <Card>
       <Venue>{venue.name}</Venue>
@@ -51,6 +62,15 @@ const EventPage = ({
         Tickets available:{" "}
         {onSale ? new Date(onSale).toLocaleDateString() : " TBA"}
       </TicketDate>
+      <MyMapComponent
+        isMarkerShown
+        lat={parseFloat(venue.latitude)}
+        lng={parseFloat(venue.longitude)}
+        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp"
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `200px` }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+      />
     </Card>
   );
 };
