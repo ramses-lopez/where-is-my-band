@@ -62,7 +62,7 @@ const renderEvents = events => {
     events.map(e => <Event key={e.id} data={e} />)
   ) : (
     <Empty>
-      We sorry, No upcoming events.
+      Sorry, No upcoming events.
       <Icon big primary className="fa fa-frown-o" left />
     </Empty>
   );

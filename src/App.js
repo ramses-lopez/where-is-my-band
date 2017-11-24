@@ -4,6 +4,8 @@ import SearchBar from "./Components/SearchBar";
 import Artist from "./Components/Artist";
 import EventList from "./Components/EventList";
 
+const theme = { primary: "#7B1FA2" };
+
 const baseUrl = "https://rest.bandsintown.com";
 const appId = "?app_id=wimb";
 
@@ -21,8 +23,17 @@ const getExcerptURL = query => {
   )}`;
 };
 
-const theme = {
-  primary: "#7B1FA2"
+const builtExcerpt = data => {
+  return !data.query.pages[-1]
+    ? data.query.pages[Object.keys(data.query.pages)[0]].extract.substring(
+        0,
+        150
+      ) + "..."
+    : null;
+};
+
+const builtArtist = data => {
+  return data.id != "" ? data : null;
 };
 
 const Wrapper = styled.div`
@@ -31,6 +42,7 @@ const Wrapper = styled.div`
   align-items: flex-start;
   justify-content: center;
 `;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,26 +60,26 @@ class App extends Component {
       let artistEvents = [];
       let excerpt = null;
 
-      const artistResp = await fetch(getArtistURL(query));
-      artist = await artistResp.json();
+      try {
+        const artistReq = await fetch(getArtistURL(query));
+        artist = builtArtist(await artistReq.json(););
+      } catch (e) {
+        artist = null;
+      }
 
-      const excerptResp = await fetch(getExcerptURL(artist.name));
-      excerpt = await excerptResp.json();
-      excerpt =
-        excerpt.query.pages[
-          Object.keys(excerpt.query.pages)[0]
-        ].extract.substring(0, 150) + "...";
+      if (artist) {
+        const excerptReq = await fetch(getExcerptURL(artist.name));
+        excerpt = builtExcerpt(await excerptReq.json());
+      }
 
       artist = { ...artist, excerpt };
 
       if (artist.upcoming_event_count > 0) {
-        const eventResp = await fetch(getEventsURL(query));
-        artistEvents = await eventResp.json();
+        const eventReq = await fetch(getEventsURL(query));
+        artistEvents = await eventReq.json();
       }
 
-      this.setState({ artist, artistEvents }, () => {
-        console.log(this.state);
-      });
+      this.setState({ artist, artistEvents });
     })();
   }
 
