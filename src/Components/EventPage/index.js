@@ -10,6 +10,10 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
   </GoogleMap>
 ))
 
+const Link = styled.a`
+  color: white;
+`;
+
 const Card = styled.div`
   list-style-type: none;
   background: #7b1fa2;
@@ -19,11 +23,6 @@ const Card = styled.div`
   width: 100%;
   margin: 15px;
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.04);
-    cursor: pointer;
-  }
 
   @media (min-width: 1200px) {
     flex-basis: 40%;
@@ -50,11 +49,12 @@ const TicketDate = styled.div`
 
 const EventPage = ({
   data: { venue, datetime: date, on_sale_datetime: onSale },
-  artist: { artist }
+  artist
 }) => {
-  console.log(artist)
   return (
     <Card>
+      <Link href="/"> Back </Link>
+      <h1>{ artist.name }</h1>
       <Venue>{venue.name}</Venue>
       <City>{`${venue.city}, ${venue.country}`}</City>
       <EventDate>Date: {new Date(date).toLocaleDateString()}</EventDate>
@@ -62,6 +62,7 @@ const EventPage = ({
         Tickets available:{" "}
         {onSale ? new Date(onSale).toLocaleDateString() : " TBA"}
       </TicketDate>
+      <br/>
       <MyMapComponent
         isMarkerShown
         lat={parseFloat(venue.latitude)}
