@@ -33,7 +33,7 @@ const builtExcerpt = data => {
 };
 
 const builtArtist = data => {
-  return data.id != "" ? data : null;
+  return data.id !== "" ? data : null;
 };
 
 const Wrapper = styled.div`
