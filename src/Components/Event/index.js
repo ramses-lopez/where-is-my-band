@@ -22,21 +22,16 @@ const Venue = styled.h1`
   font-weight: bold;
 `;
 
-class Event extends Component {
-  render() {
-    return (
-      <Card>
-        <Venue>{this.props.eventData.venue.name}</Venue>
-        <h3>
-          {this.props.eventData.venue.city},{" "}
-          {this.props.eventData.venue.country}
-        </h3>
-        <h2>{this.props.eventData.datetime.toLocaleString()}</h2>
-        <h4>Tickets available {this.props.eventData.on_sale_datetime}</h4>
-        <input type="button" value="Details" />
-      </Card>
-    );
-  }
-}
+const Event = ({ data }) => (
+  <Card>
+    <Venue>{data.venue.name}</Venue>
+    <h3>
+      {data.venue.city}, {data.venue.country}
+    </h3>
+    <h2>{data.datetime.toLocaleString()}</h2>
+    <h4>Tickets available {data.on_sale_datetime}</h4>
+    <input type="button" value="Details" />
+  </Card>
+);
 
 export default Event;

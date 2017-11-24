@@ -40,7 +40,7 @@ const Button = styled.button`
 
 const renderEvents = events => {
   return events && events.length > 0 ? (
-    events.map(e => <Event key={e.id} eventData={e} />)
+    events.map(e => <Event key={e.id} data={e} />)
   ) : (
     <span>No upcoming events</span>
   );
