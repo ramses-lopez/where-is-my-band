@@ -5,6 +5,18 @@ import SearchBar from "./Components/SearchBar";
 const baseUrl = "https://rest.bandsintown.com";
 const appId = "?app_id=wimb";
 
+const getArtistURL = query => {
+  return `${baseUrl}/artists/${encodeURI(query)}${appId}`;
+};
+
+const getEventsURL = query => {
+  return `${baseUrl}/artists/${encodeURI(query)}/events${appId}`;
+};
+
+const getExcerptURL = query => {
+  return `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&redirects=1&exintro=&explaintext=&titles=maroon%205`;
+};
+
 const theme = {
   primary: "#7B1FA2"
 };
@@ -16,23 +28,31 @@ class App extends Component {
     this.onSearch = this.onSearch.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.onSearch("maroon 5");
+  }
 
   onSearch(query) {
     (async () => {
       let artist = {};
       let artistEvents = [];
+      let excerpt = null;
 
-      const artistResp = await fetch(
-        `${baseUrl}/artists/${encodeURI(query)}${appId}`
-      );
+      const artistResp = await fetch(getArtistURL(query));
       artist = await artistResp.json();
 
+      const excerptResp = await fetch(getExcerptURL(artist.name));
+      excerpt = await excerptResp.json();
+      excerpt =
+        excerpt.query.pages[
+          Object.keys(excerpt.query.pages)[0]
+        ].extract.substring(0, 250) + "...";
+
+      artist = { ...artist, excerpt };
+
       if (artist.upcoming_event_count > 0) {
-        const eventEesp = await fetch(
-          `${baseUrl}/artists/${encodeURI(query)}/events${appId}`
-        );
-        artistEvents = await eventEesp.json();
+        const eventResp = await fetch(getEventsURL(query));
+        artistEvents = await eventResp.json();
       }
 
       this.setState({ artist, artistEvents }, () => {
