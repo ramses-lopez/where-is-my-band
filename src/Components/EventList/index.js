@@ -99,6 +99,7 @@ class EventList extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Wrapper>
         {renderEvents(this.getCurrentEvents())}

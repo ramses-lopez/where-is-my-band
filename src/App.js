@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import SearchBar from "./Components/SearchBar";
-import Artist from "./Components/Artist";
-import EventList from "./Components/EventList";
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import HomePage from "./Components/HomePage";
+import EventPage from "./Components/EventPage";
 
 const theme = { primary: "#7B1FA2" };
 
@@ -33,21 +33,15 @@ const builtExcerpt = data => {
 };
 
 const builtArtist = data => {
-  return data.id != "" ? data : null;
+  return data.id !== "" ? data : null;
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-`;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { artist: {}, artistEvents: [] };
+    this.state = { artist: {}, artistEvents: [], activeEvent: {} };
     this.onSearch = this.onSearch.bind(this);
+    this.setActiveEvent = this.setActiveEvent.bind(this);
   }
 
   componentDidMount() {
@@ -83,16 +77,35 @@ class App extends Component {
     })();
   }
 
+  setActiveEvent() {}
+
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div>
-          <SearchBar search={this.onSearch} />
-          <Wrapper>
-            <Artist artist={this.state.artist} />
-            <EventList events={this.state.artistEvents} />
-          </Wrapper>
-        </div>
+        <Router>
+          <div>
+            <Route
+              path="/"
+              render={() => {
+                return (
+                  <HomePage
+                    search={this.onSearch}
+                    artist={this.state.artist}
+                    events={this.state.artistEvents}
+                    setActiveEvent={this.setActiveEvent}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/event/:index"
+              render={() => {
+                <EventPage event={this.state.artistEvents[0]} />;
+              }}
+            />
+          </div>
+        </Router>
       </ThemeProvider>
     );
   }
