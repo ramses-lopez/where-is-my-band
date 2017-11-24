@@ -102,7 +102,7 @@ class App extends Component {
             <Route
               path="/event/:index"
               render={ () => {
-                return this.state.artistEvents[0] ? (<EventPage artist={this.state.artist} data={ this.state.artistEvents[0] } />) : null ;
+                return this.state.artist && this.state.artistEvents[0] ? (<EventPage artist={ this.state.artist } data={ this.state.artistEvents[0] } />) : null ;
               }}
             />
           </div>
