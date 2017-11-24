@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider } from "styled-components";
 import SearchBar from "./Components/SearchBar";
+import EventList from "./Components/EventList";
 
 const baseUrl = "https://rest.bandsintown.com";
 const appId = "?app_id=wimb";
@@ -41,10 +42,14 @@ class App extends Component {
     })();
   }
 
+
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <SearchBar search={this.onSearch} />
+        <div>
+          <SearchBar search={this.onSearch} />
+          <EventList events={this.state.artistEvents}/>
+        </div>
       </ThemeProvider>
     );
   }
