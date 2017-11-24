@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider } from "styled-components";
 import SearchBar from "./Components/SearchBar";
+import Artist from "./Components/Artist";
 
 const baseUrl = "https://rest.bandsintown.com";
 const appId = "?app_id=wimb";
@@ -14,7 +15,9 @@ const getEventsURL = query => {
 };
 
 const getExcerptURL = query => {
-  return `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&redirects=1&exintro=&explaintext=&titles=maroon%205`;
+  return `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&redirects=1&exintro=&explaintext=&titles=${encodeURI(
+    query
+  )}`;
 };
 
 const theme = {
@@ -46,7 +49,7 @@ class App extends Component {
       excerpt =
         excerpt.query.pages[
           Object.keys(excerpt.query.pages)[0]
-        ].extract.substring(0, 250) + "...";
+        ].extract.substring(0, 150) + "...";
 
       artist = { ...artist, excerpt };
 
@@ -64,7 +67,12 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <SearchBar search={this.onSearch} />
+        <div>
+          <SearchBar search={this.onSearch} />
+          <div>
+            <Artist artist={this.state.artist} />
+          </div>
+        </div>
       </ThemeProvider>
     );
   }
