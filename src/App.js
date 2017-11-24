@@ -1,40 +1,19 @@
 import React, { Component } from "react";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import {
+  getArtistURL,
+  getEventsURL,
+  getExcerptURL,
+  builtExcerpt,
+  builtArtist
+} from "./utils";
+
 import HomePage from "./Components/HomePage";
 import EventPage from "./Components/EventPage";
 
 const theme = { primary: "#7B1FA2" };
-
-const baseUrl = "https://rest.bandsintown.com";
-const appId = "?app_id=wimb";
-
-const getArtistURL = query => {
-  return `${baseUrl}/artists/${encodeURI(query)}${appId}`;
-};
-
-const getEventsURL = query => {
-  return `${baseUrl}/artists/${encodeURI(query)}/events${appId}`;
-};
-
-const getExcerptURL = query => {
-  return `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&redirects=1&exintro=&explaintext=&titles=${encodeURI(
-    query
-  )}`;
-};
-
-const builtExcerpt = data => {
-  return !data.query.pages[-1]
-    ? data.query.pages[Object.keys(data.query.pages)[0]].extract.substring(
-        0,
-        150
-      ) + "..."
-    : null;
-};
-
-const builtArtist = data => {
-  return data.id !== "" ? data : null;
-};
 
 class App extends Component {
   constructor(props) {
