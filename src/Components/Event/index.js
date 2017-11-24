@@ -10,6 +10,7 @@ const Card = styled.li`
   border-radius: 0px 3px 3px 0px;
 `;
 
+
 class Event extends Component {
   render() {
     return (

@@ -7,24 +7,19 @@ const List = styled.ul`
   border-radius: 0px 3px 3px 0px;
 `;
 
+const renderEvents = events => {
+  return (events && events.length > 0) ?
+    events.map(e => <Event key={e.id} eventData={e}/>) :
+    (<span>No upcoming events</span>)
+}
+
 class EventList extends Component {
-
   render() {
-    let eventList = null
-
-    if(this.props.events && this.props.events.length > 0)
-      eventList = this.props.events.map(e => <Event key={e.id} eventData={e}/>)
-    else
-      eventList = (<span>No upcoming events</span>)
-
     return (
       <section>
-        <h1>Events</h1>
-        <List>
-          {eventList}
-        </List>
+        <List> { renderEvents(this.props.events) } </List>
       </section>
-    );
+    )
   }
 }
 

@@ -27,9 +27,8 @@ const theme = {
 
 const Wrapper = styled.div`
   display: flex;
-  //flex-direction: row;
+  align-items: flex-start;
 `
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +68,6 @@ class App extends Component {
       });
     })();
   }
-
 
   render() {
     return (
