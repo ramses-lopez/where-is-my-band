@@ -1,61 +1,11 @@
 import React, { Component } from "react";
-import { transparentize } from "polished";
-import styled from "styled-components";
+
+import Wrapper from "./Wrapper";
+import ButtonHolder from "./ButtonHolder";
+import Button from "./Button";
+import Empty from "./Empty";
+import Icon from "./Icon";
 import Event from "../Event";
-
-const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  @media (min-width: 600px) {
-    width: 50%;
-  }
-  @media (min-width: 1200px) {
-    width: 66.6%;
-  }
-`;
-
-const ButtonHolder = styled.div`
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  padding: 15px;
-`;
-
-const Button = styled.button`
-  padding: 10px 25px;
-  background: transparent;
-  border: 2px solid ${props => props.theme.primary};
-  color: ${props => props.theme.primary};
-  font-size: 16px;
-  transition: all 0.2s ease-in-out;
-  margin-left: ${props => (props.left ? "auto" : "15px")};
-  margin-right: ${props => (props.right ? "auto" : "15px")};
-
-  &:hover {
-    cursor: pointer;
-    background: ${props => transparentize(0.9, props.theme.primary)};
-  }
-`;
-
-const Icon = styled.span`
-  color: ${props => (props.primary ? props.theme.primary : "white")};
-  font-size: ${props => (props.big ? "80px" : "20px")};
-  padding-right: ${props => (props.left ? "15px" : "0px")};
-  padding-left: ${props => (props.right ? "15px" : "0px")};
-`;
-
-const Empty = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  font-size: 30px;
-  margin-top: 50px;
-`;
 
 class EventList extends Component {
   constructor(props) {

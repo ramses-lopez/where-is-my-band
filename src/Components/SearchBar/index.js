@@ -1,52 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 
-const Form = styled.form`
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-
-  &:after {
-    content: "";
-    box-shadow: 0px 0px 25px #000;
-    display: block;
-    width: 300px;
-    max-width: 90%;
-    height: 5px;
-    position: absolute;
-    z-index: -1;
-    bottom: 16px;
-  }
-`;
-
-const Input = styled.input`
-  background: white;
-  border: none;
-  font-size: 16px;
-  line-height: 50px;
-  height: 50px;
-  width: 100%;
-  max-width: 300px;
-  border-radius: 3px 0px 0px 3px;
-  outline: none;
-  padding-left: 15px;
-`;
-
-const Icon = styled.button.attrs({
-  type: "submit"
-})`
-  border: none;
-  background: #7b1fa2;
-  color: white;
-  height: 50px;
-  line-height: 50px;
-  font-size: 20px;
-  padding: 0px 15px;
-  border-radius: 0px 3px 3px 0px;
-`;
+import Form from "./Form";
+import Input from "./Input";
+import Icon from "./Icon";
 
 class SearchBar extends Component {
   constructor(props) {

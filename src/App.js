@@ -67,21 +67,26 @@ class App extends Component {
               exact
               path="/"
               render={() => {
-                return (
+                return this.state.artist ? (
                   <HomePage
                     search={this.onSearch}
                     artist={this.state.artist}
                     events={this.state.artistEvents}
                     setActiveEvent={this.setActiveEvent}
                   />
-                );
+                ) : null;
               }}
             />
 
             <Route
               path="/event/:index"
-              render={ () => {
-                return this.state.artistEvents[0] ? (<EventPage artist={this.state.artist} data={ this.state.artistEvents[0] } />) : null ;
+              render={() => {
+                return this.state.artistEvents[0] ? (
+                  <EventPage
+                    artist={this.state.artist}
+                    data={this.state.artistEvents[0]}
+                  />
+                ) : null;
               }}
             />
           </div>
