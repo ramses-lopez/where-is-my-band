@@ -64,6 +64,7 @@ class App extends Component {
         <Router>
           <div>
             <Route
+              exact
               path="/"
               render={() => {
                 return (
@@ -79,8 +80,8 @@ class App extends Component {
 
             <Route
               path="/event/:index"
-              render={() => {
-                <EventPage event={this.state.artistEvents[0]} />;
+              render={ () => {
+                return this.state.artistEvents[0] ? (<EventPage data={ this.state.artistEvents[0] } />) : null ;
               }}
             />
           </div>
