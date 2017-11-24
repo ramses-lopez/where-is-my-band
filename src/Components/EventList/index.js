@@ -42,7 +42,7 @@ const Button = styled.button`
 
 const Icon = styled.span`
   color: ${props => (props.primary ? props.theme.primary : "white")};
-  font-size: ${props => (props.big ? "80px" : "2px")};
+  font-size: ${props => (props.big ? "80px" : "20px")};
   padding-right: ${props => (props.left ? "15px" : "0px")};
   padding-left: ${props => (props.right ? "15px" : "0px")};
 `;
@@ -105,14 +105,14 @@ class EventList extends Component {
         <ButtonHolder>
           {this.state.page > 0 && (
             <Button left onClick={this.handlePage(-1)}>
-              <Icon className="fa fa-arrow-left" left />
+              <Icon className="fa fa-arrow-left" left primary />
               Prev
             </Button>
           )}
           {this.state.page < Math.ceil(this.props.events.length / 4) - 1 && (
             <Button right onClick={this.handlePage(+1)}>
               Next
-              <Icon className="fa fa-arrow-right" right />
+              <Icon className="fa fa-arrow-right" right primary />
             </Button>
           )}
         </ButtonHolder>
