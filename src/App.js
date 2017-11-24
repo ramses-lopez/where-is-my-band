@@ -62,7 +62,7 @@ class App extends Component {
 
       try {
         const artistReq = await fetch(getArtistURL(query));
-        artist = builtArtist(await artistReq.json(););
+        artist = builtArtist(await artistReq.json());
       } catch (e) {
         artist = null;
       }
