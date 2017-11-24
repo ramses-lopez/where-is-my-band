@@ -57,17 +57,6 @@ const Empty = styled.div`
   margin-top: 50px;
 `;
 
-const renderEvents = events => {
-  return events && events.length > 0 ? (
-    events.map(e => <Event key={e.id} data={e} />)
-  ) : (
-    <Empty>
-      Sorry, No upcoming events.
-      <Icon big primary className="fa fa-frown-o" left />
-    </Empty>
-  );
-};
-
 class EventList extends Component {
   constructor(props) {
     super(props);
@@ -76,12 +65,21 @@ class EventList extends Component {
     };
 
     this.handlePage = this.handlePage.bind(this);
+    this.getTarget = this.getTarget.bind(this);
+    this.getPageCount = this.getPageCount.bind(this);
+  }
+
+  getTarget(delta) {
+    return this.state.page + delta;
+  }
+
+  getPageCount() {
+    return Math.ceil(this.props.events.length / 4) - 1;
   }
 
   handlePage(delta) {
-    const target = this.state.page + delta;
-    const pageCount = Math.ceil(this.props.events.length / 4) - 1;
-
+    const target = this.getTarget(delta);
+    const pageCount = this.getPageCount();
     const validateLimits = () => {
       if (target > pageCount) return pageCount;
       if (target < 0) return 0;
@@ -98,24 +96,43 @@ class EventList extends Component {
     );
   }
 
+  renderEvents(events) {
+    return events && events.length > 0 ? (
+      events.map(e => <Event key={e.id} data={e} />)
+    ) : (
+      <Empty>
+        Sorry, No upcoming events.
+        <Icon big primary className="fa fa-frown-o" left />
+      </Empty>
+    );
+  }
+
+  renderButton(delta) {
+    const target = this.getTarget(delta);
+    const pageCount = this.getPageCount();
+
+    if (target > 0 && target < pageCount) {
+      return (
+        <Button
+          left={delta < 0}
+          right={delta > 0}
+          onClick={this.handlePage(delta)}
+        >
+          {delta < 0 && <Icon className={"fa fa-arrow-left"} left primary />}
+          {delta < 0 ? "Prev" : "Next"}
+          {delta > 0 && <Icon className={"fa fa-arrow-right"} right primary />}
+        </Button>
+      );
+    }
+  }
+
   render() {
-    console.log(this.props);
     return (
       <Wrapper>
-        {renderEvents(this.getCurrentEvents())}
+        {this.renderEvents(this.getCurrentEvents())}
         <ButtonHolder>
-          {this.state.page > 0 && (
-            <Button left onClick={this.handlePage(-1)}>
-              <Icon className="fa fa-arrow-left" left primary />
-              Prev
-            </Button>
-          )}
-          {this.state.page < Math.ceil(this.props.events.length / 4) - 1 && (
-            <Button right onClick={this.handlePage(+1)}>
-              Next
-              <Icon className="fa fa-arrow-right" right primary />
-            </Button>
-          )}
+          {this.renderButton(-1)}
+          {this.renderButton(+1)}
         </ButtonHolder>
       </Wrapper>
     );
