@@ -14,10 +14,38 @@ const renderEvents = events => {
 }
 
 class EventList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 0
+    };
+
+    this.handlePage = this.handlePage.bind(this)
+  }
+
+  handlePage(delta) {
+    const target = this.state.page + delta
+    const pageCount = Math.ceil(this.props.events.length/6) - 1
+
+    const validateLimits = () => {
+      if(target > pageCount) return pageCount
+      if(target < 0) return 0
+      return target
+    }
+
+    return () => this.setState({page: validateLimits() })
+  }
+
+  getCurrentEvents() {
+    return this.props.events.slice(6*this.state.page, 6 * this.state.page + 6)
+  }
+
   render() {
     return (
       <section>
-        <List> { renderEvents(this.props.events) } </List>
+        <button onClick={this.handlePage(-1)}>prev</button>
+        <button onClick={this.handlePage(+1)}>next</button>
+        <List> { renderEvents(this.getCurrentEvents()) } </List>
       </section>
     )
   }
