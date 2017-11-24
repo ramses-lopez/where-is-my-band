@@ -53,7 +53,7 @@ const EventPage = ({
 }) => {
   return (
     <Card>
-      <Link href="/"> Back </Link> 
+      <Link href="/"> Back </Link>
       <h1>{ artist.name }</h1>
       <Venue>{venue.name}</Venue>
       <City>{`${venue.city}, ${venue.country}`}</City>
@@ -62,6 +62,7 @@ const EventPage = ({
         Tickets available:{" "}
         {onSale ? new Date(onSale).toLocaleDateString() : " TBA"}
       </TicketDate>
+      <br/>
       <MyMapComponent
         isMarkerShown
         lat={parseFloat(venue.latitude)}
