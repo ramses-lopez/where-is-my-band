@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an event completely 1`] = `
+<div
+  className="sc-bdVaJa lmDREB"
+>
+  <img
+    className="sc-htpNat fIYWjR"
+    src="http://example.com/some-image.jpg"
+  />
+  <h1
+    className="sc-bxivhb hGpxWJ"
+  >
+    Rock Star!
+  </h1>
+  <div
+    className="sc-bwzfXH hAsZIe"
+  >
+    Rock Star band description
+  </div>
+  <a
+    className="sc-ifAKCX goMAVo"
+    href="http://facebook.com/rockstar"
+    target="_blank"
+  >
+    Follow on Facebook
+  </a>
+</div>
+`;

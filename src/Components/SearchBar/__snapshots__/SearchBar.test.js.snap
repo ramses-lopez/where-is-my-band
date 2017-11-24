@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component according to snapshot 1`] = `
+<form
+  className="sc-bdVaJa kOzYEp"
+  onSubmit={[Function]}
+>
+  <input
+    className="sc-bwzfXH cIYUei"
+    onChange={[Function]}
+    placeholder="Search"
+    type="text"
+    value=""
+  />
+  <button
+    aria-hidden="true"
+    className="fa fa-search sc-htpNat gTfKmi"
+    type="submit"
+  />
+</form>
+`;

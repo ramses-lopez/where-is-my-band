@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an event completely 1`] = `
+<div
+  className="sc-bdVaJa dWSdXx"
+>
+  <h1
+    className="sc-bwzfXH hYipUd"
+  >
+    MyVenue
+  </h1>
+  <div
+    className="sc-htpNat fIjutD"
+  >
+    undefined, undefined
+  </div>
+  <div
+    className="sc-bxivhb llqzqF"
+  >
+    Date: 
+    Invalid Date
+  </div>
+  <div
+    className="sc-ifAKCX fQmBEu"
+  >
+    Tickets available:
+     TBA
+  </div>
+</div>
+`;

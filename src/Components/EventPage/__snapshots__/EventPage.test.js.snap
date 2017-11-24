@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component according to snapshot 1`] = `
+<div
+  className="sc-bwzfXH jfwgnS"
+>
+  <a
+    className="sc-bdVaJa gvVfeb"
+    href="/"
+  >
+     Back 
+  </a>
+  <h1>
+    Rock Star!
+  </h1>
+  <h1
+    className="sc-htpNat cSTQBi"
+  >
+    MyVenue
+  </h1>
+  <div
+    className="sc-bxivhb drhNVP"
+  >
+    undefined, undefined
+  </div>
+  <div
+    className="sc-ifAKCX bWmygj"
+  >
+    Date: 
+    Invalid Date
+  </div>
+  <div
+    className="sc-EHOje jEDgFc"
+  >
+    Tickets available:
+     
+     TBA
+  </div>
+  <br />
+  <div
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  />
+</div>
+`;

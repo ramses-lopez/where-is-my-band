@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component according to snapshot 1`] = `
+<div>
+  <form
+    className="sc-bwzfXH ioSiIW"
+    onSubmit={[Function]}
+  >
+    <input
+      className="sc-htpNat PsiW"
+      onChange={[Function]}
+      placeholder="Search"
+      type="text"
+      value=""
+    />
+    <button
+      aria-hidden="true"
+      className="fa fa-search sc-bxivhb bPqXOW"
+      type="submit"
+    />
+  </form>
+  <div
+    className="sc-bdVaJa dIvFmw"
+  >
+    <div
+      className="sc-ifAKCX fUvxRh"
+    >
+      <img
+        className="sc-bZQynM kkhJKC"
+        src="http://example.com/some-image.jpg"
+      />
+      <h1
+        className="sc-gzVnrw jwBRWH"
+      >
+        Rock Star!
+      </h1>
+      <div
+        className="sc-EHOje eMEULM"
+      >
+        Rock Star band description
+      </div>
+      <a
+        className="sc-htoDjs fgpYNQ"
+        href="http://facebook.com/rockstar"
+        target="_blank"
+      >
+        Follow on Facebook
+      </a>
+    </div>
+    <div
+      className="sc-dnqmqq kVgMYi"
+    >
+      <div
+        className="sc-jTzLTM jaSgVr"
+      >
+        <h1
+          className="sc-fjdhpX icxhmf"
+        >
+          MyVenue
+        </h1>
+        <div
+          className="sc-jzJRlG eqqNZe"
+        >
+          undefined, undefined
+        </div>
+        <div
+          className="sc-cSHVUG dHFzSm"
+        >
+          Date: 
+          Invalid Date
+        </div>
+        <div
+          className="sc-kAzzGY fLdUSY"
+        >
+          Tickets available:
+           TBA
+        </div>
+      </div>
+      <div
+        className="sc-iwsKbI lauawB"
+      />
+    </div>
+  </div>
+</div>
+`;
