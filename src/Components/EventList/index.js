@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { transparentize } from "polished";
 import styled from "styled-components";
 import Event from "../Event";
 
@@ -17,8 +18,10 @@ const Wrapper = styled.div`
 `;
 
 const ButtonHolder = styled.div`
+  display: inline-block;
   width: 100%;
-  display: flex;
+  text-align: center;
+  padding: 15px;
 `;
 
 const Button = styled.button`
@@ -27,22 +30,41 @@ const Button = styled.button`
   border: 2px solid ${props => props.theme.primary};
   color: ${props => props.theme.primary};
   font-size: 16px;
-  transition: all 0.3s linear;
+  transition: all 0.2s ease-in-out;
   margin-left: ${props => (props.left ? "auto" : "15px")};
   margin-right: ${props => (props.right ? "auto" : "15px")};
 
   &:hover {
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.05);
-    transform: scale(1.03);
+    background: ${props => transparentize(0.9, props.theme.primary)};
   }
+`;
+
+const Icon = styled.span`
+  color: ${props => (props.primary ? props.theme.primary : "white")};
+  font-size: ${props => (props.big ? "80px" : "2px")};
+  padding-right: ${props => (props.left ? "15px" : "0px")};
+  padding-left: ${props => (props.right ? "15px" : "0px")};
+`;
+
+const Empty = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-top: 50px;
 `;
 
 const renderEvents = events => {
   return events && events.length > 0 ? (
     events.map(e => <Event key={e.id} data={e} />)
   ) : (
-    <span>No upcoming events</span>
+    <Empty>
+      We sorry, No upcoming events.
+      <Icon big primary className="fa fa-frown-o" left />
+    </Empty>
   );
 };
 
@@ -81,12 +103,18 @@ class EventList extends Component {
       <Wrapper>
         {renderEvents(this.getCurrentEvents())}
         <ButtonHolder>
-          <Button left onClick={this.handlePage(-1)}>
-            Prev
-          </Button>
-          <Button right onClick={this.handlePage(+1)}>
-            Next
-          </Button>
+          {this.state.page > 0 && (
+            <Button left onClick={this.handlePage(-1)}>
+              <Icon className="fa fa-arrow-left" left />
+              Prev
+            </Button>
+          )}
+          {this.state.page < Math.ceil(this.props.events.length / 4) - 1 && (
+            <Button right onClick={this.handlePage(+1)}>
+              Next
+              <Icon className="fa fa-arrow-right" right />
+            </Button>
+          )}
         </ButtonHolder>
       </Wrapper>
     );
