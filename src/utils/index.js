@@ -25,5 +25,5 @@ export const builtExcerpt = data => {
 };
 
 export const builtArtist = data => {
-  return data.id !== "" ? data : null;
+  return data.id !== "" ? { ...data, found: true } : { found: false };
 };
