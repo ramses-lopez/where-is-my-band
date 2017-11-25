@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Start from "../Start";
 import Wrapper from "./Wrapper";
 import SearchBar from "../SearchBar";
 import Artist from "../Artist";
@@ -10,13 +11,17 @@ class HomePage extends Component {
     return (
       <div>
         <SearchBar search={this.props.search} />
-        <Wrapper>
-          <Artist artist={this.props.artist} />
-          <EventList
-            events={this.props.events}
-            setActiveEvent={this.props.setActiveEvent}
-          />
-        </Wrapper>
+        {this.props.artist.name ? (
+          <Wrapper>
+            <Artist artist={this.props.artist} />
+            <EventList
+              events={this.props.events}
+              setActiveEvent={this.props.setActiveEvent}
+            />
+          </Wrapper>
+        ) : (
+          <Start />
+        )}
       </div>
     );
   }
