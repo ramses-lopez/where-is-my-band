@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import NotFound from "./NotFound";
 import Wrapper from "./Wrapper";
@@ -8,45 +8,38 @@ import SearchBar from "../SearchBar";
 import Artist from "../Artist";
 import EventList from "../EventList";
 
-class HomePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderResult = this.renderResult.bind(this);
-  }
-
-  renderResult() {
-    console.log(this.props.artist);
-    if (this.props.artist.found === false) {
-      return (
-        <NotFound>
-          Sorry, Artist/Band not found
-          <Icon big primary className="fa fa-frown-o" left />
-        </NotFound>
-      );
-    }
-    if (!this.props.artist.name) {
-      return <Start />;
-    }
+const Result = ({ artist, events, setActiveEvent }) => {
+  // checking if the search yield any result
+  if (artist.found === false) {
     return (
-      <Wrapper>
-        <Artist artist={this.props.artist} />
-        <EventList
-          events={this.props.events}
-          setActiveEvent={this.props.setActiveEvent}
-        />
-      </Wrapper>
+      <NotFound>
+        Sorry, Artist/Band not found
+        <Icon big primary className="fa fa-frown-o" left />
+      </NotFound>
     );
   }
 
-  render() {
-    return (
-      <div>
-        <SearchBar search={this.props.search} />
-        {this.renderResult()}
-      </div>
-    );
+  // this will be false if no search has been done
+  if (!artist.name) {
+    return <Start />;
   }
-}
+
+  // rendering results
+  return (
+    <Wrapper>
+      <Artist artist={artist} />
+      <EventList events={events} setActiveEvent={setActiveEvent} />
+    </Wrapper>
+  );
+};
+
+const HomePage = ({ search, artist, events, setActiveEvent }) => {
+  return (
+    <div>
+      <SearchBar search={search} />
+      <Result artist={artist} events={events} setActiveEvent={setActiveEvent} />
+    </div>
+  );
+};
 
 export default HomePage;
