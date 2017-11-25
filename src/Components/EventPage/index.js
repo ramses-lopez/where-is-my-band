@@ -1,34 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { Link } from "react-router-dom";
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={12}
-    defaultCenter={{ lat: props.lat, lng: props.lng }}>
-    {props.isMarkerShown && <Marker position={{ lat: props.lat, lng: props.lng }} />}
-  </GoogleMap>
-))
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
 
-const Link = styled.a`
-  color: white;
+const MyMapComponent = withScriptjs(
+  withGoogleMap(props => (
+    <GoogleMap
+      defaultZoom={12}
+      defaultCenter={{ lat: props.lat, lng: props.lng }}
+    >
+      {props.isMarkerShown && (
+        <Marker position={{ lat: props.lat, lng: props.lng }} />
+      )}
+    </GoogleMap>
+  ))
+);
+
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 20px;
+  top: 15px;
+  right: 15px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: ${props => props.theme.primary};
+  background: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background: white;
+  }
 `;
 
 const Card = styled.div`
-  list-style-type: none;
+  position: relative;
+  margin: 15px;
   background: #7b1fa2;
   color: white;
   padding: 15px;
-  border-radius: 0px 3px 3px 0px;
-  width: 100%;
-  margin: 15px;
-  transition: all 0.2s ease-in-out;
-
-  @media (min-width: 1200px) {
-    flex-basis: 40%;
-    flex-grow: 1;
-  }
 `;
+
 const Venue = styled.h1`
   font-size: 30px;
   color: white;
@@ -53,8 +75,8 @@ const EventPage = ({
 }) => {
   return (
     <Card>
-      <Link href="/"> Back </Link>
-      <h1>{ artist.name }</h1>
+      <StyledLink to="/" className="fa fa-arrow-left" />
+      <h1>{artist.name}</h1>
       <Venue>{venue.name}</Venue>
       <City>{`${venue.city}, ${venue.country}`}</City>
       <EventDate>Date: {new Date(date).toLocaleDateString()}</EventDate>
@@ -62,14 +84,14 @@ const EventPage = ({
         Tickets available:{" "}
         {onSale ? new Date(onSale).toLocaleDateString() : " TBA"}
       </TicketDate>
-      <br/>
+      <br />
       <MyMapComponent
         isMarkerShown
         lat={parseFloat(venue.latitude)}
         lng={parseFloat(venue.longitude)}
-        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp"
+        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAcpgP1ZvrUvsaQnGI2DH2uVwzO5fs1cWU"
         loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `200px` }} />}
+        containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}
       />
     </Card>
