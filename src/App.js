@@ -24,7 +24,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.onSearch("maroon 5");
+    let artist = {};
+    let artistEvents = [];
+
+    try {
+      artist = JSON.parse(localStorage.getItem("artist"));
+      artistEvents = JSON.parse(localStorage.getItem("artistEvents"));
+
+      if (artist) {
+        this.setState({ artist, artistEvents });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    // this.onSearch("maroon 5");
   }
 
   onSearch(query) {
@@ -52,7 +65,14 @@ class App extends Component {
         artistEvents = await eventReq.json();
       }
 
-      this.setState({ artist, artistEvents });
+      this.setState({ artist, artistEvents }, () => {
+        try {
+          localStorage.setItem("artist", JSON.stringify(artist));
+          localStorage.setItem("artistEvents", JSON.stringify(artistEvents));
+        } catch (e) {
+          console.log("Failed to cache data", e);
+        }
+      });
     })();
   }
 
