@@ -70,7 +70,7 @@ const TicketDate = styled.div`
 `;
 
 const EventPage = ({
-  data: { venue, datetime: date, on_sale_datetime: onSale },
+  event: { venue, datetime: date, on_sale_datetime: onSale },
   artist
 }) => {
   return (

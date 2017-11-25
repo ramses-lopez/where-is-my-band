@@ -115,7 +115,7 @@ class App extends Component {
               return this.state.artist && this.state.activeEvent.venue ? (
                 <EventPage
                   artist={this.state.artist}
-                  data={this.state.activeEvent}
+                  event={this.state.activeEvent}
                 />
               ) : (
                 <Redirect to="/" />
