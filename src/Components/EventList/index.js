@@ -49,7 +49,6 @@ class EventList extends Component {
   renderEvents(events) {
     return events && events.length > 0 ? (
       events.map(e => {
-        console.log(e);
         return (
           <Event
             key={e.id}
