@@ -35,9 +35,8 @@ class App extends Component {
         this.setState({ artist, artistEvents });
       }
     } catch (e) {
-      console.log(e);
+      console.log("couldn't retrieve cache", e);
     }
-    // this.onSearch("maroon 5");
   }
 
   onSearch(query) {
