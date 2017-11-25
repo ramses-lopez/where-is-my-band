@@ -84,9 +84,12 @@ class App extends Component {
 
   // Handling when the user wants to see the details of an event
   setActiveEvent(activeEvent) {
-    this.setState({ activeEvent }, () => {
-      this.props.history.push("/event");
-    });
+    return e => {
+      console.log(e);
+      this.setState({ activeEvent }, () => {
+        this.props.history.push("/event");
+      });
+    };
   }
 
   render() {

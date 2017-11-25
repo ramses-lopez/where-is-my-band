@@ -15,6 +15,10 @@ const Button = styled.button`
     cursor: pointer;
     background: ${props => transparentize(0.9, props.theme.primary)};
   }
+
+  &:only-child {
+    margin-left: 0;
+  }
 `;
 
 export default Button;

@@ -10,23 +10,24 @@ import Event from "../Event";
 class EventList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 0
-    };
+    this.state = { page: 0 };
 
     this.handlePage = this.handlePage.bind(this);
     this.getTarget = this.getTarget.bind(this);
     this.getPageCount = this.getPageCount.bind(this);
   }
 
+  // calculating the target page for the buttons
   getTarget(delta) {
     return this.state.page + delta;
   }
 
+  // calculating how many pages will be in total
   getPageCount() {
     return Math.ceil(this.props.events.length / 4) - 1;
   }
 
+  // sets the page in the state after validating
   handlePage(delta) {
     const target = this.getTarget(delta);
     const pageCount = this.getPageCount();
@@ -39,6 +40,7 @@ class EventList extends Component {
     return () => this.setState({ page: validateLimits() });
   }
 
+  // gets the list of events based on the page
   getCurrentEvents() {
     return this.props.events.slice(
       4 * this.state.page,
@@ -47,31 +49,24 @@ class EventList extends Component {
   }
 
   renderEvents(events) {
-    return events && events.length > 0 ? (
-      events.map(e => {
-        return (
-          <Event
-            key={e.id}
-            data={e}
-            onClick={() => {
-              this.props.setActiveEvent(e);
-            }}
-          />
-        );
-      })
-    ) : (
-      <Empty>
-        Sorry, No upcoming events.
-        <Icon big primary className="fa fa-frown-o" left />
-      </Empty>
-    );
+    if (!events && !events.length > 0) {
+      return (
+        <Empty>
+          Sorry, No upcoming events.
+          <Icon big primary className="fa fa-frown-o" />
+        </Empty>
+      );
+    }
+    return events.map(e => (
+      <Event key={e.id} data={e} onClick={this.props.setActiveEvent(e)} />
+    ));
   }
 
   renderButton(delta) {
     const target = this.getTarget(delta);
     const pageCount = this.getPageCount();
 
-    if (target > 0 && target < pageCount) {
+    if (target >= 0 && target <= pageCount) {
       return (
         <Button
           left={delta < 0}
