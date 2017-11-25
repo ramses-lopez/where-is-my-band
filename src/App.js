@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ThemeProvider } from "styled-components";
 import { Route, Redirect, withRouter } from "react-router-dom";
-// import createBrowserHistory from "history/createBrowserHistory";
 
 import {
   getArtistURL,
@@ -14,7 +13,6 @@ import {
 import HomePage from "./Components/HomePage";
 import EventPage from "./Components/EventPage";
 
-// const history = createBrowserHistory();
 const theme = { primary: "#7B1FA2" };
 
 class App extends Component {
@@ -26,11 +24,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let artist = {};
-    let artistEvents = [];
+    // getting artist/events from localStorage
     try {
-      artist = JSON.parse(localStorage.getItem("artist"));
-      artistEvents = JSON.parse(localStorage.getItem("artistEvents"));
+      const artist = JSON.parse(localStorage.getItem("artist"));
+      const artistEvents = JSON.parse(localStorage.getItem("artistEvents"));
 
       if (artist) {
         this.setState({ artist, artistEvents });
@@ -40,32 +37,41 @@ class App extends Component {
     }
   }
 
+  // Handling artist/band search
   onSearch(query) {
     (async () => {
       let artist = {};
       let artistEvents = [];
       let excerpt = null;
 
+      // requesting artist data
       try {
         const artistReq = await fetch(getArtistURL(query));
         artist = builtArtist(await artistReq.json());
       } catch (e) {
+        // assuming that if the try block failed it'll be because it couldn't
+        // find the artist/band (as currently the API is providing an invalid
+        // response in said case)
         artist = { found: false };
       }
 
-      if (artist) {
+      // if the artist was found request the excerpt
+      if (artist.found) {
         const excerptReq = await fetch(getExcerptURL(artist.name));
         excerpt = builtExcerpt(await excerptReq.json());
       }
 
+      // composing artist data + excerpt
       artist = { ...artist, excerpt };
 
+      // if the artist has upcoming events, request them
       if (artist.upcoming_event_count > 0) {
         const eventReq = await fetch(getEventsURL(query));
         artistEvents = await eventReq.json();
       }
 
       this.setState({ artist, artistEvents }, () => {
+        // Saving the search result to localStorage
         try {
           localStorage.setItem("artist", JSON.stringify(artist));
           localStorage.setItem("artistEvents", JSON.stringify(artistEvents));
@@ -76,9 +82,9 @@ class App extends Component {
     })();
   }
 
+  // Handling when the user wants to see the details of an event
   setActiveEvent(activeEvent) {
     this.setState({ activeEvent }, () => {
-      console.log("called");
       this.props.history.push("/event");
     });
   }
