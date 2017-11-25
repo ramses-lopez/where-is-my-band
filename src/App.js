@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Redirect } from "react-router-dom";
+import createBrowserHistory from "history/createBrowserHistory";
 
 import {
   getArtistURL,
@@ -13,6 +14,7 @@ import {
 import HomePage from "./Components/HomePage";
 import EventPage from "./Components/EventPage";
 
+const history = createBrowserHistory();
 const theme = { primary: "#7B1FA2" };
 
 class App extends Component {
@@ -26,7 +28,6 @@ class App extends Component {
   componentDidMount() {
     let artist = {};
     let artistEvents = [];
-
     try {
       artist = JSON.parse(localStorage.getItem("artist"));
       artistEvents = JSON.parse(localStorage.getItem("artistEvents"));
@@ -75,37 +76,41 @@ class App extends Component {
     })();
   }
 
-  setActiveEvent() {}
+  setActiveEvent(activeEvent) {
+    this.setState({ activeEvent }, () => {
+      history.push("/event");
+    });
+  }
 
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Router>
+        <Router history={history}>
           <div>
             <Route
               exact
               path="/"
-              render={() => {
-                return this.state.artist ? (
-                  <HomePage
-                    search={this.onSearch}
-                    artist={this.state.artist}
-                    events={this.state.artistEvents}
-                    setActiveEvent={this.setActiveEvent}
-                  />
-                ) : null;
-              }}
+              render={() => (
+                <HomePage
+                  search={this.onSearch}
+                  artist={this.state.artist}
+                  events={this.state.artistEvents}
+                  setActiveEvent={this.setActiveEvent}
+                />
+              )}
             />
 
             <Route
-              path="/event/:index"
+              path="/event"
               render={() => {
-                return this.state.artist && this.state.artistEvents[0] ? (
+                return this.state.artist && this.state.activeEvent.venue ? (
                   <EventPage
                     artist={this.state.artist}
-                    data={this.state.artistEvents[0]}
+                    data={this.state.activeEvent}
                   />
-                ) : null;
+                ) : (
+                  <Redirect to="/" />
+                );
               }}
             />
           </div>

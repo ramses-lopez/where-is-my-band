@@ -13,7 +13,10 @@ class HomePage extends Component {
         <SearchBar search={this.props.search} />
         <Wrapper>
           <Artist artist={this.props.artist} />
-          <EventList events={this.props.events} />
+          <EventList
+            events={this.props.events}
+            setActiveEvent={this.props.setActiveEvent}
+          />
         </Wrapper>
       </div>
     );
