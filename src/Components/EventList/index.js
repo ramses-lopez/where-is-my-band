@@ -48,6 +48,7 @@ class EventList extends Component {
     );
   }
 
+  // Validates if events were found and renders them
   renderEvents(events) {
     if (!events && !events.length > 0) {
       return (
@@ -62,10 +63,13 @@ class EventList extends Component {
     ));
   }
 
+  // render pagination buttons
+  // wether it's prev or next will be decided based on delta
   renderButton(delta) {
     const target = this.getTarget(delta);
     const pageCount = this.getPageCount();
 
+    // checks if the button should be rendered
     if (target >= 0 && target <= pageCount) {
       return (
         <Button
